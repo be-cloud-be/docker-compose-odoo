@@ -25,3 +25,15 @@ odoo:
     #- ./odoo_modules:/odoo_modules
     # Odoo conf
     - ./setupfiles/odoo.conf:/etc/odoo/odoo.tpl
+
+https:
+  image: yajo/https-proxy
+  ports:
+    - "80:80"
+    - "443:443"
+  links:
+    - odoo:www
+  environment:
+    PORT: 8069
+    KEY: ${CERT}
+    CERT: ${KEY}
